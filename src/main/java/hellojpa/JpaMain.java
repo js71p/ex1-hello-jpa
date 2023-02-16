@@ -18,17 +18,13 @@ public class JpaMain {
 
         try {
 
-//            Member fineMamber = em.find(Member.class, 1L);
-            List<Member> resultList = em.createQuery("select  m from  Member as m ", Member.class)
-                    .setFirstResult(1) //페이지 처음
-                    .setMaxResults(8)   //페이지 끝
-                    .getResultList();
+            //영속 //같은 트렌젝션안에 조회할때는 1차 캐시를 가져온다.
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAA");
 
-            for (Member member : resultList) {
-                System.out.println("member.getName() = " + member.getName());
-                
-            }
-            
+            em.detach(member);
+
+            System.out.println("========================");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
