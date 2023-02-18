@@ -18,13 +18,6 @@ public class JpaMain {
 
         try {
 
-            //영속 //같은 트렌젝션안에 조회할때는 1차 캐시를 가져온다.
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
-
-            em.detach(member);
-
-            System.out.println("========================");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
